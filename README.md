@@ -34,13 +34,12 @@ Permet d'être lancé sans compilation et de relancer dynamiquement l'applicatio
 1) Identifier et corriger l'erreur de la route POST authors
 2) Renvoyer une erreur personnalisée avec un code 404 si l'auteur n'est pas trouvée lors des routes PATCH et GET/{id}
 3) 
-    1) Développer la route GET /books
-    2) Développer la route GET /books/{id}
-    3) Développer la route POST /books
-    4) Développer la route PATCH /books/{id}
+    1) Développer la route GET /books/{id}
+    2) Développer la route POST /books
+    3) Développer la route PATCH /books/{id}
 4) 
-    1) Développer le modèle BookCollection
-    2) Développer le DTO BookCollection
+    1) Développer le modèle BookCopy
+    2) Développer le DTO BookCopy
     3) Développer la route GET /books-collection
     4) Développer la route GET /books-collection/{id}
     5) Développer la route POST /books-collection
