@@ -13,16 +13,16 @@
 						"type": "number",
 						"format": "double"
 					},
-					"first_name": {
+					"firstName": {
 						"type": "string"
 					},
-					"last_name": {
+					"lastName": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"first_name",
-					"last_name"
+					"firstName",
+					"lastName"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -36,7 +36,7 @@
 					"title": {
 						"type": "string"
 					},
-					"publish_year": {
+					"publishYear": {
 						"type": "number",
 						"format": "double"
 					},
@@ -49,7 +49,7 @@
 				},
 				"required": [
 					"title",
-					"publish_year",
+					"publishYear",
 					"isbn"
 				],
 				"type": "object",

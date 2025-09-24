@@ -4,17 +4,14 @@ import { Book } from "./book.model";
 
 export interface AuthorAttributes {
   id: number;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
 }
 
-export class Author
-  extends Model<AuthorAttributes>
-  implements AuthorAttributes
-{
+export class Author extends Model<AuthorAttributes> implements AuthorAttributes {
   public id!: number;
-  public first_name!: string;
-  public last_name!: string;
+  public firstName!: string;
+  public lastName!: string;
 }
 
 Author.init(
@@ -24,13 +21,15 @@ Author.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    first_name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: "first_name",
     },
-    last_name: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: "last_name",
     },
   },
   {

@@ -16,7 +16,7 @@ export class AuthorService {
     firstName: string,
     lastName: string
   ): Promise<Author> {
-    return Author.create({id: -1, first_name: firstName, last_name: lastName });
+    return Author.create({id: -1, firstName: firstName, lastName: lastName });
   }
 
   // Supprime un auteur par ID
@@ -35,8 +35,8 @@ export class AuthorService {
   ): Promise<Author | null> {
     const author = await Author.findByPk(id);
     if (author) {
-      if (firstName) author.first_name = firstName;
-      if (lastName) author.last_name = lastName;
+      if (firstName) author.firstName = firstName;
+      if (lastName) author.lastName = lastName;
       await author.save();
       return author;
     }

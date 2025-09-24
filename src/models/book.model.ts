@@ -5,8 +5,8 @@ import { Author } from "./author.model";
 export interface BookAttributes {
   id: number;
   title: string;
-  publish_year: number;
-  author_id: number;
+  publishYear: number;
+  authorId: number;
   isbn: string;
   author?: Author;
 }
@@ -14,8 +14,8 @@ export interface BookAttributes {
 export class Book extends Model<BookAttributes> implements BookAttributes {
   public id!: number;
   public title!: string;
-  public publish_year!: number;
-  public author_id!: number;
+  public publishYear!: number;
+  public authorId!: number;
   public isbn!: string;
   public author?: Author;
 }
@@ -31,13 +31,15 @@ Book.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    publish_year: {
+    publishYear: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      field: "publish_year",
     },
-    author_id: {
+    authorId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      field: "author_id",
     },
     isbn: {
       type: DataTypes.STRING,
@@ -51,4 +53,4 @@ Book.init(
   }
 );
 
-Book.belongsTo(Author, { foreignKey: "author_id", as: "author" });
+Book.belongsTo(Author, { foreignKey: "authorId", as: "author" });
