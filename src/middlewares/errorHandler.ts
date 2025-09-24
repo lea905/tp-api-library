@@ -1,17 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 
 // Interface pour les erreurs
-interface Error {
+export type CustomError = Error & {
   status?: number;
-  message?: string;
 }
 
 // Middleware pour gérer les erreurs
 const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
+    err: CustomError,
+    req: Request,
+    res: Response,
+    next: NextFunction
 ): void => {
   console.error("An error occurred:", err);
 
