@@ -34,6 +34,22 @@ export class BookService {
         return Book.create({ title, publishYear, authorId, isbn });
     }
 
+    public async updateBook(title: string, publishYear: number, authorId: number, isbn: string, id: number): Promise<Book> {
+        const book = await Book.findByPk(id)
+        if (book === null) {
+            let error: CustomError = new Error(`Book ${id} not found`);
+            error.status = 404;
+            throw error;
+        }
+        if (title) book.title = title;
+        if (publishYear) book.publishYear = publishYear;
+        if (authorId) book.authorId = authorId;
+        if (isbn) book.isbn = isbn;
+        await book.save();
+        return book;
+
+    }
+
 }
 
 export const bookService = new BookService();

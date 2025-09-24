@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Route, Tags } from "tsoa";
+import {Body, Controller, Get, Patch, Path, Post, Route, Tags} from "tsoa";
 import { BookDTO } from "../dto/book.dto";
 import { bookService } from "../services/book.service";
 import { CustomError } from "../middlewares/errorHandler";
@@ -35,5 +35,27 @@ export class BookController extends Controller {
       throw error;
     }
     return bookService.createBook(title, publishYear, author?.id, isbn)
+  }
+
+  @Patch("{id}")
+  public async updateBook(@Path() id:number,@Body() requestBody: BookDTO): Promise<BookDTO>{
+    const {title, publishYear, author, isbn} = requestBody;
+
+    if (!title || !publishYear || !author || !isbn){
+      let error : CustomError = new Error('title, publishYear, author and isbn are required');
+      error.status = 404;
+      throw error;
+    }
+
+    let book : Book | null =await bookService.updateBook(title, publishYear, author, isbn, id);
+
+    if(book === null) {
+      let error: CustomError = new Error("Book not found");
+      error.status = 404;
+      throw error;
+    }
+
+    return book;
+
   }
 }
