@@ -116,6 +116,108 @@
 				],
 				"security": [],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateBookCopy",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BookCopyDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BookCopys"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BookCopyDTO"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/bookCopys/{id}": {
+			"get": {
+				"operationId": "GetBookCopyById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BookCopyDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BookCopys"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateBookCopy",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BookCopyDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BookCopys"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BookCopyDTO"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/books": {
