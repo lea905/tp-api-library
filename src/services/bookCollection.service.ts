@@ -63,6 +63,9 @@ export class BookCollectionService{
             return bookCopy;
         }
     }
+    public async deleteBookCopy(id: number): Promise<void> {
+        await BookCopy.destroy({ where: { id } });
+    }
 }
 
 export const bookCollectionService = new BookCollectionService();

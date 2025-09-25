@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Patch, Path, Post, Route, Tags} from "tsoa";
+import {Body, Controller, Delete, Get, Patch, Path, Post, Route, Tags} from "tsoa";
 import {BookCopyDTO} from "../dto/bookCopy.dto";
 import {bookCollectionService} from "../services/bookCollection.service";
 import {BookCopy} from "../models/bookCopy.model";
@@ -54,6 +54,11 @@ export class BookCopyController extends Controller {
             throw error;
         }
         return bookCollectionService.updateBookCopy(state, available, book?.id, id);
+    }
+
+    @Delete("{id}")
+    public async deleteBookCopy(@Path() id: number): Promise<void> {
+        await bookCollectionService.deleteBookCopy(id);
     }
 
 }
