@@ -2,6 +2,7 @@ import { Author } from "../models/author.model";
 import { Book } from "../models/book.model";
 import {AuthorService, authorService} from "./author.service";
 import {CustomError} from "../middlewares/errorHandler";
+import {BookCopy} from "../models/bookCopy.model";
 
 export class BookService {
 
@@ -67,7 +68,19 @@ export class BookService {
     }
 
 
+    async hasBookCopies(id: number) {
+        const count = await BookCopy.count({
+            where: { bookId: id }
+        });
+        return count > 0;
+    }
 
+    public async deleteBook(id: number): Promise<void> {
+        const book = await Book.findByPk(id);
+        if (book) {
+            await book.destroy();
+        }
+    }
 }
 
 export const bookService = new BookService();

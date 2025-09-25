@@ -1,4 +1,6 @@
 import { Author } from "../models/author.model";
+import {Book} from "../models/book.model";
+import {BookCopy} from "../models/bookCopy.model";
 
 export class AuthorService {
   // Récupère tous les auteurs
@@ -42,6 +44,20 @@ export class AuthorService {
     }
     return null;
   }
+
+  async hasBookCopies(authorId: number): Promise<boolean> {
+    const count = await BookCopy.count({
+      include: [{
+        model: Book,
+        as: 'book',
+        where: { authorId }
+      }]
+    });
+    return count > 0;
+  }
+
+
+
 }
 
 export const authorService = new AuthorService();

@@ -1,8 +1,9 @@
-import {Body, Controller, Get, Patch, Path, Post, Route, Tags} from "tsoa";
+import {Body, Controller, Delete, Get, Patch, Path, Post, Route, Tags} from "tsoa";
 import {BookDTO} from "../dto/book.dto";
 import {bookService} from "../services/book.service";
 import {CustomError} from "../middlewares/errorHandler";
 import {Book} from "../models/book.model";
+import {authorService} from "../services/author.service";
 
 @Route("books")
 @Tags("Books")
@@ -54,5 +55,16 @@ export class BookController extends Controller {
    return  bookService.updateBook(title, publishYear, author?.id, isbn, id);
   }
 
+
+  @Delete("{id}")
+  public async deleteBook(@Path() id: number): Promise<void> {
+    const hasBookCopies = await bookService.hasBookCopies(id);
+    if (hasBookCopies) {
+      const error: CustomError = new Error("Impossible de supprimer le livre");
+      error.status = 409;
+      throw error;
+    }
+    await bookService.deleteBook(id);
+  }
 
 }
