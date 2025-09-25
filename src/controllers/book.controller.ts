@@ -9,13 +9,13 @@ import {authorService} from "../services/author.service";
 @Tags("Books")
 export class BookController extends Controller {
   @Get("/")
-  @Security("jwt",["author:read"])
+  @Security("jwt",["book:read"])
   public async getAllBooks(): Promise<BookDTO[]> {
     return bookService.getAllBooks();
   }
 
   @Get("{id}")
-    @Security("jwt",["author:read"])
+    @Security("jwt",["book:read"])
   public async getBoodById(id: number): Promise<BookDTO> {
     let book: Book | null = await bookService.getBookById(id);
 

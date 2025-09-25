@@ -33,7 +33,7 @@ export class AuthorController extends Controller {
 
   // Crée un nouvel auteur
   @Post("/")
-    @Security("jwt",["author:create"])
+  @Security("jwt",["author:create"])
   public async createAuthor(
       @Body() requestBody: AuthorDTO
   ): Promise<AuthorDTO> {
