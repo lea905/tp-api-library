@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Route, Path, Body, Tags, Patch } from "tsoa";
+import {Controller, Get, Post, Delete, Route, Path, Body, Tags, Patch, Security} from "tsoa";
 import { authorService } from "../services/author.service";
 import { AuthorDTO } from "../dto/author.dto";
 import { Author } from "../models/author.model";
@@ -8,9 +8,11 @@ import {bookService, BookService} from "../services/book.service";
 
 @Route("authors")
 @Tags("Authors")
+@Security("jwt",["write","read"])
 export class AuthorController extends Controller {
   // Récupère tous les auteurs
   @Get("/")
+
   public async getAllAuthors(): Promise<AuthorDTO[]> {
     return authorService.getAllAuthors();
   }
@@ -82,7 +84,6 @@ export class AuthorController extends Controller {
 
   @Get("{id}/books")
   public async getBooksByAuthor(@Path() id: number): Promise<BookDTO[]> {
-    // Vérifie que l'auteur existe (optionnel mais recommandé)
     const author = await authorService.getAuthorById(id);
     if (!author) {
       const error: CustomError = new Error("Author not found");
