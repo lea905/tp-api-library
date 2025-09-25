@@ -1,11 +1,13 @@
 import { Model } from "sequelize";
 import sequelize from "../config/database"; // Connexion à la base de données
+import { Book } from "./book.model";
 
 export interface BookCopyAttributes {
     id?: number;
     bookId: number;
-    status: number;
-    location: string;
+    state: number;
+    available: number;
+    book?: Book;
 }
 
 export class BookCopy
@@ -14,8 +16,9 @@ export class BookCopy
 {
     public id?: number;
     public bookId!: number;
-    public status!: number;
-    public location!: string;
+    public state!: number;
+    public available!: number;
+    public book?: Book;
 }
 
 BookCopy.init(
@@ -30,12 +33,12 @@ BookCopy.init(
         allowNull: false,
         field: "book_id",
     },
-    status: {
+    state: {
         type: "INTEGER",
         allowNull: false,
     },
-    location: {
-        type: "STRING",
+    available: {
+        type: "INTEGER",
         allowNull: false,
     }
   },
@@ -44,3 +47,5 @@ BookCopy.init(
     tableName: "BookCopy",
   }
 );
+
+BookCopy.belongsTo(Book, { foreignKey: "bookId", as: "book" });

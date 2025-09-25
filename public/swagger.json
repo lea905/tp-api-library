@@ -50,6 +50,36 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"BookCopyDTO": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"bookId": {
+						"type": "number",
+						"format": "double"
+					},
+					"state": {
+						"type": "number",
+						"format": "double"
+					},
+					"available": {
+						"type": "number",
+						"format": "double"
+					},
+					"book": {
+						"$ref": "#/components/schemas/BookDTO"
+					}
+				},
+				"required": [
+					"bookId",
+					"state",
+					"available"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -63,6 +93,31 @@
 		"contact": {}
 	},
 	"paths": {
+		"/bookCopys": {
+			"get": {
+				"operationId": "GetAllBookCopys",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/BookCopyDTO"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BookCopys"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/books": {
 			"get": {
 				"operationId": "GetAllBooks",

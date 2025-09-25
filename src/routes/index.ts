@@ -38,6 +38,18 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "BookCopyDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double"},
+            "bookId": {"dataType":"double","required":true},
+            "state": {"dataType":"double","required":true},
+            "available": {"dataType":"double","required":true},
+            "book": {"ref":"BookDTO"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"throw-on-extras","bodyCoercion":true});
 
@@ -55,6 +67,35 @@ export function RegisterRoutes(app: Router) {
 
 
     
+        const argsBookCopyController_getAllBookCopys: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.get('/bookCopys',
+            ...(fetchMiddlewares<RequestHandler>(BookCopyController)),
+            ...(fetchMiddlewares<RequestHandler>(BookCopyController.prototype.getAllBookCopys)),
+
+            async function BookCopyController_getAllBookCopys(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsBookCopyController_getAllBookCopys, request, response });
+
+                const controller = new BookCopyController();
+
+              await templateService.apiHandler({
+                methodName: 'getAllBookCopys',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsBookController_getAllBooks: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/books',
