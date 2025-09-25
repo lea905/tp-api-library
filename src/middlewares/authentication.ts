@@ -1,29 +1,36 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
 
-let admin =[];
-let user = [];
-let gerant = [];
-
-
 export function expressAuthentication(
     request: express.Request,
     securityName: string,
     scopes?: string[]
 ): Promise<any> {
-    if (securityName === 'jwr') {
-        const token = request.headers['authorization'];
+    if (securityName === "jwt") {
+        const token = request.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
+
         return new Promise((resolve, reject) => {
             if (!token) {
                 reject(new Error("No token provided"));
             } else {
-                jwt.verify(token, "your_secret_key",
-                    function (error, decoded) {
-                        if (scopes !== undefined) {
-                            //Gestion des droits
+                jwt.verify(token, "your_secret_key", (error, decoded: any) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        if (scopes && scopes.length > 0) {
+                            for (let scope of scopes) {
+                                const [table, action] = scope.split(":");
+                                if (
+                                    !decoded.permissions[table] ||
+                                    !decoded.permissions[table].includes(action)
+                                ) {
+                                    return reject(new Error("Forbidden - insufficient rights"));
+                                }
+                            }
                         }
                         resolve(decoded);
-                    })
+                    }
+                });
             }
         });
     } else {
