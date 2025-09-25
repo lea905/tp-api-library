@@ -20,9 +20,7 @@ export function expressAuthentication(
                         if (scopes && scopes.length > 0) {
                             for (let scope of scopes) {
                                 const [table, action] = scope.split(":");
-                                if (
-                                    !decoded.permissions[table] ||
-                                    !decoded.permissions[table].includes(action)
+                                if (!decoded.permissions[table] ||!decoded.permissions[table].includes(action)
                                 ) {
                                     return reject(new Error("Forbidden - insufficient rights"));
                                 }

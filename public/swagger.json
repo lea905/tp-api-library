@@ -323,7 +323,7 @@
 				"security": [
 					{
 						"jwt": [
-							"author:read"
+							"book:read"
 						]
 					}
 				],
@@ -387,7 +387,7 @@
 				"security": [
 					{
 						"jwt": [
-							"author:read"
+							"book:read"
 						]
 					}
 				],
