@@ -3,6 +3,7 @@ import { Book } from "../models/book.model";
 import {AuthorService, authorService} from "./author.service";
 import {CustomError} from "../middlewares/errorHandler";
 import {BookCopy} from "../models/bookCopy.model";
+import {BookDTO} from "../dto/book.dto";
 
 export class BookService {
 
@@ -80,6 +81,10 @@ export class BookService {
         if (book) {
             await book.destroy();
         }
+    }
+
+    async getBooksByAuthorId(authorId: number): Promise<BookDTO[]> {
+        return Book.findAll({ where: { authorId } });
     }
 }
 
