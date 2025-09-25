@@ -41,7 +41,7 @@ export class AuthentificationService {
         }
 
         let role: Role = "user";
-        if (user.username === "root") role = "admin";
+        if (user.username === "admin") role = "admin";
         else if (user.username === "gerant") role = "gerant";
 
         const token = jwt.sign(
