@@ -34,21 +34,39 @@ export class BookService {
         return Book.create({ title, publishYear, authorId, isbn });
     }
 
-    public async updateBook(title: string, publishYear: number, authorId: number, isbn: string, id: number): Promise<Book> {
-        const book = await Book.findByPk(id)
-        if (book === null) {
-            let error: CustomError = new Error(`Book ${id} not found`);
+    public async updateBook(title: string,publishYear: number,authorId: number,isbn: string,id: number): Promise<Book> {
+        const book = await this.getBookById(id);
+        if (!book) {
+            const error: CustomError = new Error(`Book ${id} not found`);
             error.status = 404;
             throw error;
+        }else{
+            if (authorId !== undefined){
+                let author: Author | null = await this.authorService.getAuthorById(authorId);
+                if(author === null) {
+                    let error: CustomError = new Error(`Author ${authorId} not found`);
+                    error.status = 404;
+                    throw error;
+                }
+            }
+            if (title !== undefined){
+                book.title = title;
+
+            }
+            if (publishYear !== undefined){
+                book.publishYear = publishYear;
+            }
+
+            if (isbn !== undefined){
+                book.isbn = isbn;
+            }
         }
-        if (title) book.title = title;
-        if (publishYear) book.publishYear = publishYear;
-        if (authorId) book.authorId = authorId;
-        if (isbn) book.isbn = isbn;
+
         await book.save();
         return book;
-
     }
+
+
 
 }
 
